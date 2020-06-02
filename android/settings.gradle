@@ -1,0 +1,3 @@
+rootProject.name = 'recicly_mobile'
+
+include ':app'
