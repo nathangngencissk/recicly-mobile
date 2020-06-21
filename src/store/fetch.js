@@ -46,3 +46,10 @@ export function fetchAdresses(id) {
     return _fetch(`user/adresses?id=${id}`);
 }
 
+export function fetchRequests(id) {
+    return _fetch(`user/requests?id=${id}`);
+}
+
+export function addRequest(id) {
+    return _post('user/start-request', { id: id });
+}

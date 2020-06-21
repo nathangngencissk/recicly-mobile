@@ -23,7 +23,10 @@ const store = new Vuex.Store({
         loadingPosts: false,
         adresses: [],
         fetchingAddresses: false,
-        selectedAddress: {}
+        selectedAddress: {},
+        userRequests: [],
+        selectedRequest: {},
+        fetchingRequests: false
     }
 });
 

@@ -9,6 +9,9 @@
           <nb-text>{{userData.email}}</nb-text>
         </nb-list-item>
         <nb-list-item>
+          <nb-text :on-press="history">History</nb-text>
+        </nb-list-item>
+        <nb-list-item>
           <nb-text :on-press="logout">Logout</nb-text>
         </nb-list-item>
       </nb-list>
@@ -39,6 +42,9 @@ export default {
   methods: {
     logout() {
       store.dispatch("LOGOUT", () => this.navigation.dispatch(resetAction));
+    },
+    history() {
+      this.navigation.navigate("History");
     }
   },
   computed: {

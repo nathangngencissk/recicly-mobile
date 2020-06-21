@@ -52,7 +52,7 @@
         </nb-button>
       </view>
       <view :style="{marginTop:10}">
-        <nb-button block :style="{backgroundColor: '#35654d'}" :on-press="pedirCorrida">
+        <nb-button block :style="{backgroundColor: '#35654d'}" :on-press="askDelivery">
           <nb-text :style="{fontWeight: 'bold'}">Pedir Motorista</nb-text>
         </nb-button>
       </view>
@@ -99,7 +99,9 @@ export default {
     }
   },
   props: {
-    navigation: Object
+    navigation: {
+      type: Object
+    }
   },
   created() {
     this.fetchList(store.state.activeType);
@@ -113,10 +115,14 @@ export default {
     navigate() {
       this.navigation.navigate("Home");
     },
+    startRequest() {
+      store.dispatch("START_REQUEST", store.state.userObj.id);
+      this.navigation.navigate("History");
+    },
     changeAddress(address) {
       return store.dispatch("SET_ADDRESS", address);
     },
-    pedirCorrida: function() {
+    askDelivery: function() {
       Alert.alert(
         "Confirme o endereço",
         `${this.selectedAddress.street}, ${this.selectedAddress.number}. ${this.selectedAddress.district}, ${this.selectedAddress.state}, ${this.selectedAddress.country}`,
@@ -126,7 +132,7 @@ export default {
             onPress: () => console.log("Cancel Pressed"),
             style: "cancel"
           },
-          { text: "OK", onPress: () => console.log("OK Pressed") }
+          { text: "OK", onPress: () => this.startRequest() }
         ],
         { cancelable: false }
       );

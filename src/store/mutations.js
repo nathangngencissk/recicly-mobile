@@ -34,3 +34,16 @@ export function SET_ADDRESS(state, address) {
 export function FETCHING_ADDRESSES(state) {
     state.fetchingAddresses = true;
 }
+
+export function FETCHING_REQUESTS(state) {
+    state.fetchingRequests = true;
+}
+
+export function SET_REQUESTS(state, requests) {
+    state.fetchingRequests = false;
+    state.userRequests = requests;
+}
+
+export function SET_REQUEST(state, request) {
+    state.selectedRequest = request;
+}

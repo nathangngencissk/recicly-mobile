@@ -1,4 +1,4 @@
-import { fetchPosts, login, fetchAdresses } from './fetch';
+import { fetchPosts, login, fetchAdresses, fetchRequests, addRequest } from './fetch';
 import { AsyncStorage } from 'react-native';
 
 // ensure data for rendering given list type
@@ -55,4 +55,23 @@ export function GET_USER_ADRESSES({ commit, dispatch }, id) {
 
 export function SET_ADDRESS({ commit, state }, address) {
     return commit('SET_ADDRESS', address)
+}
+
+export function GET_USER_REQUESTS({ commit, dispatch }, id) {
+    commit('FETCHING_REQUESTS', true)
+    return fetchRequests(id)
+        .then(requests => {
+            return commit('SET_REQUESTS', requests)
+        });
+}
+
+export function SET_REQUEST({ commit, state }, request) {
+    return commit('SET_REQUEST', request)
+}
+
+export function START_REQUEST({ commit, state }, id) {
+    return addRequest(id)
+        .then(res => {
+            console.log(res)
+        });
 }
