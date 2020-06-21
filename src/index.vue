@@ -14,7 +14,6 @@ import {
 } from "vue-native-router";
 import { Root } from "native-base";
 import LoginScreen from "./screens/login.vue";
-// import SignupScreen from "./screens/Signup/index.vue";
 import HomeScreen from "./screens/home.vue";
 import Sidebar from "./screens/sidebar.vue";
 

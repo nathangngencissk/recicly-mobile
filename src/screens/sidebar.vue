@@ -3,6 +3,9 @@
     <nb-content :style="stylesObj.drawerContent" :bounces="false">
       <nb-list>
         <nb-list-item>
+          <image :source="require('../../assets/recicly.png')" />
+        </nb-list-item>
+        <nb-list-item>
           <nb-text>{{userData.email}}</nb-text>
         </nb-list-item>
         <nb-list-item>

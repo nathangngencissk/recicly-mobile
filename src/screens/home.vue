@@ -1,21 +1,61 @@
 <template>
   <nb-container :style="{flex:1, backgroundColor: '#fff'}">
-    <nb-header>
+    <nb-header :style="{backgroundColor: '#35654d'}">
       <nb-left>
         <nb-button transparent :on-press="() => navigation.navigate('DrawerOpen')">
-          <nb-icon name="menu" />
+          <Icon name="bars" color="#fff" />
         </nb-button>
       </nb-left>
       <nb-body>
-        <nb-title>Posts</nb-title>
+        <nb-title>Home</nb-title>
       </nb-body>
       <nb-right />
     </nb-header>
-    <nb-content>
-      <nb-list>
-        <item v-if="!loading" v-for="(itemType, types) in items" :data="itemType" />
-        <nb-spinner v-if="loading"></nb-spinner>
+    <nb-content padder>
+      <nb-row :style="{flex:1, alignItems: 'center'}">
+        <nb-col>
+          <image
+            v-if="profilePicture"
+            :style="{width: 100, height: 100, borderRadius: 50, margin: 25}"
+            :source="{uri: profilePicture}"
+          />
+          <image
+            v-else
+            :style="{width: 100, height: 100, borderRadius: 50, margin: 25}"
+            :source="require('../../assets/user.png')"
+          />
+        </nb-col>
+        <nb-col>
+          <text :style="{fontSize: 20, color: '#35654d'}">{{userName}}</text>
+          <text :style="{fontSize: 20, fontWeight: 'bold', color: '#35654d'}">{{userPoints}} pts</text>
+        </nb-col>
+      </nb-row>
+      <nb-spinner v-if="fetchingAddresses" />
+      <nb-list v-else>
+        <nb-list-item
+          v-for="address in userAddresses"
+          :key="address.id"
+          :onPress="() => changeAddress(address)"
+        >
+          <nb-left>
+            <nb-text>{{address.street}}</nb-text>
+          </nb-left>
+          <nb-right>
+            <nb-radio :selected="address==selectedAddress" />
+          </nb-right>
+        </nb-list-item>
       </nb-list>
+      <view :style="{marginTop:10}">
+        <nb-button block :style="{backgroundColor: '#35654d'}">
+          <Icon name="plus" color="#fff" />
+          <nb-text>Novo Endereço</nb-text>
+        </nb-button>
+      </view>
+      <view :style="{marginTop:10}">
+        <nb-button block :style="{backgroundColor: '#35654d'}" :on-press="pedirCorrida">
+          <nb-text :style="{fontWeight: 'bold'}">Pedir Motorista</nb-text>
+        </nb-button>
+      </view>
     </nb-content>
   </nb-container>
 </template>
@@ -24,7 +64,10 @@
 import React from "react";
 import Item from "../components/item";
 import { Dimensions } from "react-native";
+import { NavigationActions } from "vue-native-router";
 import store from "../store";
+import Icon from "react-native-vector-icons/FontAwesome";
+import { Alert } from "react-native";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
@@ -35,6 +78,24 @@ export default {
     },
     loading() {
       return store.state.loadingPosts;
+    },
+    profilePicture() {
+      return store.state.userObj.profile_picture;
+    },
+    userPoints() {
+      return store.state.userObj.points;
+    },
+    userName() {
+      return store.state.userObj.name;
+    },
+    userAddresses() {
+      return store.state.adresses;
+    },
+    fetchingAddresses() {
+      return store.state.fetchingAddresses;
+    },
+    selectedAddress() {
+      return store.state.selectedAddress;
     }
   },
   props: {
@@ -48,10 +109,32 @@ export default {
       return store.dispatch("FETCH_LIST_DATA", {
         type: type
       });
+    },
+    navigate() {
+      this.navigation.navigate("Home");
+    },
+    changeAddress(address) {
+      return store.dispatch("SET_ADDRESS", address);
+    },
+    pedirCorrida: function() {
+      Alert.alert(
+        "Confirme o endereço",
+        `${this.selectedAddress.street}, ${this.selectedAddress.number}. ${this.selectedAddress.district}, ${this.selectedAddress.state}, ${this.selectedAddress.country}`,
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+          },
+          { text: "OK", onPress: () => console.log("OK Pressed") }
+        ],
+        { cancelable: false }
+      );
     }
   },
   components: {
-    Item
+    Item,
+    Icon
   }
 };
 </script>

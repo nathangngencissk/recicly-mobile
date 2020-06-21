@@ -19,7 +19,11 @@ const store = new Vuex.Store({
         posts: [],
         logging_in: false,
         userObj: {},
-        loadingPosts: false
+        wrong_login: false,
+        loadingPosts: false,
+        adresses: [],
+        fetchingAddresses: false,
+        selectedAddress: {}
     }
 });
 

@@ -1,12 +1,13 @@
 <template>
-  <nb-container v-if="loaded" :style="{backgroundColor: '#fff'}">
-    <nb-header>
+  <nb-container v-if="loaded">
+    <nb-header :style="{backgroundColor: '#35654d'}">
       <nb-body>
-        <nb-title>Login</nb-title>
+        <nb-title :style="{marginLeft: 10}">Recicly</nb-title>
       </nb-body>
     </nb-header>
     <nb-content padder>
-      <nb-form>
+      <nb-form :style="{alignItems: 'center', justifyContent: 'center'}">
+        <image :source="require('../../assets/recicly.png')" />
         <nb-item
           :error="(!$v.emailValue.required || !$v.emailValue.email ) && $v.emailValue.$dirty"
         >
@@ -28,10 +29,11 @@
         </nb-item>
       </nb-form>
       <view :style="{marginTop:10}">
-        <nb-button block :on-press="login">
+        <nb-button block :on-press="login" :style="{backgroundColor: '#35654d'}">
           <nb-spinner v-if="logging_in" size="small" />
           <nb-text>Login</nb-text>
         </nb-button>
+        <text v-if="wrong_login" :style="{color: 'red'}">Wrong email/password combination</text>
       </view>
     </nb-content>
   </nb-container>
@@ -56,6 +58,9 @@ export default {
   computed: {
     logging_in() {
       return store.state.logging_in;
+    },
+    wrong_login() {
+      return store.state.wrong_login;
     }
   },
   validations: {
@@ -89,7 +94,10 @@ export default {
     login() {
       if (this.emailValue && this.password && !this.$v.emailValue.$invalid) {
         store.dispatch("LOGIN", {
-          userObj: { email: this.emailValue },
+          userObj: {
+            email: this.emailValue,
+            password: this.password
+          },
           navigate: this.navigation.navigate
         });
       } else {

@@ -1,4 +1,4 @@
-import { fetchPosts } from './fetch';
+import { fetchPosts, login, fetchAdresses } from './fetch';
 import { AsyncStorage } from 'react-native';
 
 // ensure data for rendering given list type
@@ -10,14 +10,25 @@ export function FETCH_LIST_DATA({ commit, dispatch }, { type }) {
         });
 }
 
-export function LOGIN({ commit, state }, { userObj, navigate }) {
+export function LOGIN({ commit, dispatch }, { userObj, navigate }) {
     commit('LOGGING_IN', true)
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            commit('LOGIN_SUCCESFULL', { userObj })
-            AsyncStorage.setItem('email', userObj.email)
-            navigate('Home');
-            resolve();
+            login(userObj)
+                .then(res => {
+                    let user = res.user
+                    if (user.id) {
+                        commit('LOGIN_SUCCESFULL', user);
+                        AsyncStorage.setItem('email', user.email);
+                        dispatch('GET_USER_ADRESSES', user.id);
+                        commit('FETCHING_ADDRESSES');
+                        navigate('Home');
+                        resolve();
+                    }
+                    else {
+                        commit('LOGIN_FAILED')
+                    }
+                });
         }, 1000)
     })
 }
@@ -33,4 +44,15 @@ export function LOGOUT({ commit, state }, callback) {
             resolve();
         })
     })
+}
+
+export function GET_USER_ADRESSES({ commit, dispatch }, id) {
+    return fetchAdresses(id)
+        .then(adresses => {
+            return commit('SET_ADRESSES', adresses)
+        });
+}
+
+export function SET_ADDRESS({ commit, state }, address) {
+    return commit('SET_ADDRESS', address)
 }
