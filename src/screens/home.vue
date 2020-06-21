@@ -68,6 +68,7 @@ import { NavigationActions } from "vue-native-router";
 import store from "../store";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Alert } from "react-native";
+import { Toast } from "native-base";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
@@ -123,19 +124,26 @@ export default {
       return store.dispatch("SET_ADDRESS", address);
     },
     askDelivery: function() {
-      Alert.alert(
-        "Confirme o endereço",
-        `${this.selectedAddress.street}, ${this.selectedAddress.number}. ${this.selectedAddress.district}, ${this.selectedAddress.state}, ${this.selectedAddress.country}`,
-        [
-          {
-            text: "Cancel",
-            onPress: () => console.log("Cancel Pressed"),
-            style: "cancel"
-          },
-          { text: "OK", onPress: () => this.startRequest() }
-        ],
-        { cancelable: false }
-      );
+      if (this.selectedAddress.id) {
+        Alert.alert(
+          "Confirme o endereço",
+          `${this.selectedAddress.street}, ${this.selectedAddress.number}. ${this.selectedAddress.district}, ${this.selectedAddress.state}, ${this.selectedAddress.country}`,
+          [
+            {
+              text: "Cancel",
+              onPress: () => console.log("Cancel Pressed"),
+              style: "cancel"
+            },
+            { text: "OK", onPress: () => this.startRequest() }
+          ],
+          { cancelable: false }
+        );
+      } else {
+        Toast.show({
+          text: "Selecione um endereço",
+          buttonText: "Okay"
+        });
+      }
     }
   },
   components: {

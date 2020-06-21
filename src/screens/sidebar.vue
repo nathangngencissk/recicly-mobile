@@ -9,6 +9,9 @@
           <nb-text>{{userData.email}}</nb-text>
         </nb-list-item>
         <nb-list-item>
+          <nb-text :on-press="home">Home</nb-text>
+        </nb-list-item>
+        <nb-list-item>
           <nb-text :on-press="history">History</nb-text>
         </nb-list-item>
         <nb-list-item>
@@ -45,6 +48,9 @@ export default {
     },
     history() {
       this.navigation.navigate("History");
+    },
+    home() {
+      this.navigation.navigate("Home");
     }
   },
   computed: {
