@@ -9,13 +9,19 @@
           <nb-text>{{userData.email}}</nb-text>
         </nb-list-item>
         <nb-list-item>
-          <nb-text :on-press="home">Home</nb-text>
+          <nb-text :on-press="home">Inicio</nb-text>
         </nb-list-item>
         <nb-list-item>
-          <nb-text :on-press="history">History</nb-text>
+          <nb-text :on-press="shop">Loja</nb-text>
         </nb-list-item>
         <nb-list-item>
-          <nb-text :on-press="logout">Logout</nb-text>
+          <nb-text :on-press="orders">Pedidos</nb-text>
+        </nb-list-item>
+        <nb-list-item>
+          <nb-text :on-press="history">Histórico</nb-text>
+        </nb-list-item>
+        <nb-list-item>
+          <nb-text :on-press="logout">Sair</nb-text>
         </nb-list-item>
       </nb-list>
     </nb-content>
@@ -51,6 +57,12 @@ export default {
     },
     home() {
       this.navigation.navigate("Home");
+    },
+    shop() {
+      this.navigation.navigate("Shop");
+    },
+    orders() {
+      this.navigation.navigate("Orders");
     }
   },
   computed: {

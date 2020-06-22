@@ -47,3 +47,21 @@ export function SET_REQUESTS(state, requests) {
 export function SET_REQUEST(state, request) {
     state.selectedRequest = request;
 }
+
+export function FETCHING_PRODUCTS(state) {
+    state.fetchingProducts = true;
+}
+
+export function SET_PRODUCTS(state, products) {
+    state.fetchingProducts = false;
+    state.products = products;
+}
+
+export function FETCHING_ORDERS(state) {
+    state.fetchingOrders = true;
+}
+
+export function SET_ORDERS(state, orders) {
+    state.fetchingOrders = false;
+    state.userOrders = orders;
+}

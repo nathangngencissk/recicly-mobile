@@ -53,3 +53,11 @@ export function fetchRequests(id) {
 export function addRequest(id) {
     return _post('user/start-request', { id: id });
 }
+
+export function fetchProducts() {
+    return _fetch('product/get-all');
+}
+
+export function fetchOrders(id) {
+    return _post('user/orders', { id: id });
+}

@@ -1,4 +1,4 @@
-import { fetchPosts, login, fetchAdresses, fetchRequests, addRequest } from './fetch';
+import { fetchPosts, login, fetchAdresses, fetchRequests, addRequest, fetchProducts, fetchOrders } from './fetch';
 import { AsyncStorage } from 'react-native';
 
 // ensure data for rendering given list type
@@ -73,5 +73,21 @@ export function START_REQUEST({ commit, state }, id) {
     return addRequest(id)
         .then(res => {
             console.log(res)
+        });
+}
+
+export function FETCH_PRODUCTS({ commit, dispatch }, id) {
+    commit('FETCHING_PRODUCTS', true)
+    return fetchProducts()
+        .then(products => {
+            return commit('SET_PRODUCTS', products)
+        });
+}
+
+export function GET_USER_ORDERS({ commit, dispatch }, id) {
+    commit('FETCHING_ORDERS', true)
+    return fetchOrders(id)
+        .then(orders => {
+            return commit('SET_ORDERS', orders)
         });
 }
