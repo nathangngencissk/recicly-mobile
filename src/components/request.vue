@@ -7,11 +7,7 @@
       <text :style="{fontWeight: 'bold', fontSize: 15, color: '#35654d'}">{{request.status}}</text>
     </nb-col>
     <nb-col>
-      <view :style="{marginTop:10}">
-        <nb-button block :style="{backgroundColor: '#35654d'}">
-          <Icon name="plus" color="#fff" />
-        </nb-button>
-      </view>
+      <text :style="{fontSize: 13}">{{request.timestamp}}</text>
     </nb-col>
   </nb-row>
 </template>

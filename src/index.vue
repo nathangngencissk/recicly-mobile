@@ -19,13 +19,17 @@ import Sidebar from "./screens/sidebar.vue";
 import HistoryScreen from "./screens/history.vue";
 import ShopScreen from "./screens/shop.vue";
 import OrdersScreen from "./screens/orders.vue";
+import NewAddressScreen from "./screens/newAddress.vue";
+import NewUserScreen from "./screens/newUser.vue";
 
 const Drawer = DrawerNavigator(
   {
     Home: { screen: HomeScreen },
     History: { screen: HistoryScreen },
     Shop: { screen: ShopScreen },
-    Orders: { screen: OrdersScreen }
+    Orders: { screen: OrdersScreen },
+    NewAddress: { screen: NewAddressScreen },
+    NewUser: { screen: NewUserScreen }
   },
   {
     initialRouteName: "Home",
@@ -39,7 +43,9 @@ const AppNavigation = StackNavigator(
     Drawer: { screen: Drawer },
     History: { screen: HistoryScreen },
     Shop: { screen: ShopScreen },
-    Orders: { screen: OrdersScreen }
+    Orders: { screen: OrdersScreen },
+    NewAddress: { screen: NewAddressScreen },
+    NewUser: { screen: NewUserScreen }
   },
   {
     initialRouteName: "Login",

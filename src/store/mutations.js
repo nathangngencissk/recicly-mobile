@@ -65,3 +65,7 @@ export function SET_ORDERS(state, orders) {
     state.fetchingOrders = false;
     state.userOrders = orders;
 }
+
+export function REDUCE_POINTS(state, price) {
+    state.userObj.points -= price;
+}

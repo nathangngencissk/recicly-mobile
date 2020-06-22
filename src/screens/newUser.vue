@@ -7,35 +7,31 @@
         </nb-button>
       </nb-left>
       <nb-body>
-        <nb-title>Cadastro Endereço</nb-title>
+        <nb-title>Cadastro</nb-title>
       </nb-body>
       <nb-right />
     </nb-header>
     <nb-content padder>
       <nb-form>
         <nb-item>
-          <nb-input v-model="street" placeholder="Rua" />
+          <nb-input v-model="name" placeholder="Nome" />
         </nb-item>
         <nb-item>
-          <nb-input v-model="number" placeholder="Numero" />
+          <nb-input v-model="cpf" placeholder="CPF" />
         </nb-item>
         <nb-item>
-          <nb-input v-model="cep" placeholder="CEP" />
-        </nb-item>
-        <nb-item>
-          <nb-input v-model="district" placeholder="Bairro" />
-        </nb-item>
-        <nb-item>
-          <nb-input v-model="city" placeholder="Cidade" />
-        </nb-item>
-        <nb-item>
-          <nb-input v-model="state" placeholder="Estado" />
+          <nb-input v-model="email" placeholder="Email" />
         </nb-item>
         <nb-item last>
-          <nb-input v-model="country" placeholder="País" />
+          <nb-input
+            auto-capitalize="none"
+            secure-text-entry
+            v-model="password"
+            placeholder="Senha"
+          />
         </nb-item>
         <view :style="{marginTop:10}">
-          <nb-button block :style="{backgroundColor: '#35654d'}" :on-press="addAddress">
+          <nb-button block :style="{backgroundColor: '#35654d'}" :on-press="addUser">
             <nb-text :style="{fontWeight: 'bold'}">Cadastrar</nb-text>
           </nb-button>
         </view>
@@ -60,32 +56,28 @@ export default {
   computed: {},
   data: function() {
     return {
-      street: "",
-      number: "",
-      cep: "",
-      district: "",
-      city: "",
-      state: "",
-      country: ""
+      name: "",
+      cpf: "",
+      email: "",
+      password: ""
     };
   },
   created() {},
   methods: {
-    addAddress() {
-      store.dispatch("ADD_ADDRESS", {
-        id_user: store.state.userObj.id,
-        street: this.street,
-        number: this.number,
-        cep: this.cep,
-        district: this.district,
-        city: this.city,
-        state: this.state,
-        country: this.country
+    addUser() {
+      store.dispatch("ADD_USER", {
+        name: this.name,
+        cpf: this.cpf,
+        email: this.email,
+        password: this.password
       });
       Toast.show({
-        text: "Endereço cadastrado com sucesso",
+        text: "Cadastro efetuado com sucesso. Redirecionando",
         buttonText: "Okay"
       });
+      setTimeout(() => {
+        this.navigation.navigate("Login");
+      }, 3000);
     }
   },
   components: { Icon }

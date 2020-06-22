@@ -31,9 +31,18 @@
       <view :style="{marginTop:10}">
         <nb-button block :on-press="login" :style="{backgroundColor: '#35654d'}">
           <nb-spinner v-if="logging_in" size="small" />
-          <nb-text>Login</nb-text>
+          <nb-text :style="{fontWeight: 'bold'}">Login</nb-text>
         </nb-button>
         <text v-if="wrong_login" :style="{color: 'red'}">Wrong email/password combination</text>
+      </view>
+      <view :style="{marginTop:10}">
+        <nb-button
+          block
+          :style="{backgroundColor: '#35654d'}"
+          :on-press="() => navigation.navigate('NewUser')"
+        >
+          <nb-text>Cadastrar</nb-text>
+        </nb-button>
       </view>
     </nb-content>
   </nb-container>

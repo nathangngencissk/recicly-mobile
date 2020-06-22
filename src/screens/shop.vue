@@ -17,6 +17,7 @@
         paddingVertical: 20
     }}"
       >
+        <text :style="{fontSize: 20, fontWeight: 'bold', color: '#35654d'}">{{userPoints}} pts</text>
         <nb-spinner v-if="fetchingProducts" />
         <nb-list v-else>
           <nb-list-item
@@ -51,6 +52,9 @@ export default {
     },
     fetchingProducts() {
       return store.state.fetchingProducts;
+    },
+    userPoints() {
+      return store.state.userObj.points;
     }
   },
   data: function() {

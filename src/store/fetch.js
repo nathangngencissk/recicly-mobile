@@ -61,3 +61,15 @@ export function fetchProducts() {
 export function fetchOrders(id) {
     return _post('user/orders', { id: id });
 }
+
+export function addAddress(address) {
+    return _post('adress/add', address);
+}
+
+export function addUser(user) {
+    return _post('user/add', user);
+}
+
+export function buyProduct(payload) {
+    return _post('user/buy', payload);
+}

@@ -46,7 +46,11 @@
         </nb-list-item>
       </nb-list>
       <view :style="{marginTop:10}">
-        <nb-button block :style="{backgroundColor: '#35654d'}">
+        <nb-button
+          block
+          :style="{backgroundColor: '#35654d'}"
+          :on-press="() => navigation.navigate('NewAddress')"
+        >
           <Icon name="plus" color="#fff" />
           <nb-text>Novo Endereço</nb-text>
         </nb-button>
@@ -105,13 +109,11 @@ export default {
     }
   },
   created() {
-    this.fetchList(store.state.activeType);
+    this.fetchAddresses();
   },
   methods: {
-    fetchList(type) {
-      return store.dispatch("FETCH_LIST_DATA", {
-        type: type
-      });
+    fetchAddresses() {
+      return store.dispatch("GET_USER_ADRESSES", store.state.userObj.id);
     },
     navigate() {
       this.navigation.navigate("Home");

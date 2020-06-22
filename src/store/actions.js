@@ -1,4 +1,4 @@
-import { fetchPosts, login, fetchAdresses, fetchRequests, addRequest, fetchProducts, fetchOrders } from './fetch';
+import { fetchPosts, login, fetchAdresses, fetchRequests, addRequest, fetchProducts, fetchOrders, addAddress, addUser, buyProduct } from './fetch';
 import { AsyncStorage } from 'react-native';
 
 // ensure data for rendering given list type
@@ -89,5 +89,26 @@ export function GET_USER_ORDERS({ commit, dispatch }, id) {
     return fetchOrders(id)
         .then(orders => {
             return commit('SET_ORDERS', orders)
+        });
+}
+
+export function ADD_ADDRESS({ commit, state }, address) {
+    return addAddress(address)
+        .then(res => {
+            console.log(res)
+        });
+}
+
+export function ADD_USER({ commit, state }, user) {
+    return addUser(user)
+        .then(res => {
+            console.log(res)
+        });
+}
+
+export function BUY_PRODUCT({ commit, state }, payload) {
+    return buyProduct(payload)
+        .then(res => {
+            return commit('REDUCE_POINTS', payload.price)
         });
 }
