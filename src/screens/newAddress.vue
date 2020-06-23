@@ -86,6 +86,9 @@ export default {
         text: "Endereço cadastrado com sucesso",
         buttonText: "Okay"
       });
+      setTimeout(() => {
+        this.navigation.navigate("Home");
+      }, 3000);
     }
   },
   components: { Icon }

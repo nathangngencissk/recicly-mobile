@@ -119,7 +119,10 @@ export default {
       this.navigation.navigate("Home");
     },
     startRequest() {
-      store.dispatch("START_REQUEST", store.state.userObj.id);
+      store.dispatch("START_REQUEST", {
+        user_id: store.state.userObj.id,
+        address_id: this.selectedAddress.id
+      });
       this.navigation.navigate("History");
     },
     changeAddress(address) {

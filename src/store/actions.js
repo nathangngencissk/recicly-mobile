@@ -69,8 +69,9 @@ export function SET_REQUEST({ commit, state }, request) {
     return commit('SET_REQUEST', request)
 }
 
-export function START_REQUEST({ commit, state }, id) {
-    return addRequest(id)
+export function START_REQUEST({ commit, dispatch }, payload) {
+    dispatch('GET_USER_REQUESTS', payload.user_id)
+    return addRequest(payload)
         .then(res => {
             console.log(res)
         });

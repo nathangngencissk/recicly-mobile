@@ -1,15 +1,9 @@
 <template>
   <nb-container>
     <nb-header :style="{backgroundColor: '#35654d'}">
-      <nb-left>
-        <nb-button transparent :on-press="() => navigation.navigate('DrawerOpen')">
-          <Icon name="bars" color="#fff" />
-        </nb-button>
-      </nb-left>
       <nb-body>
         <nb-title>Cadastro</nb-title>
       </nb-body>
-      <nb-right />
     </nb-header>
     <nb-content padder>
       <nb-form>
@@ -33,6 +27,15 @@
         <view :style="{marginTop:10}">
           <nb-button block :style="{backgroundColor: '#35654d'}" :on-press="addUser">
             <nb-text :style="{fontWeight: 'bold'}">Cadastrar</nb-text>
+          </nb-button>
+        </view>
+        <view :style="{marginTop:10}">
+          <nb-button
+            block
+            :style="{backgroundColor: '#35654d'}"
+            :on-press="() => navigation.navigate('Login')"
+          >
+            <nb-text>Login</nb-text>
           </nb-button>
         </view>
       </nb-form>

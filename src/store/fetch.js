@@ -50,8 +50,8 @@ export function fetchRequests(id) {
     return _fetch(`user/requests?id=${id}`);
 }
 
-export function addRequest(id) {
-    return _post('user/start-request', { id: id });
+export function addRequest(payload) {
+    return _post('user/start-request', payload);
 }
 
 export function fetchProducts() {

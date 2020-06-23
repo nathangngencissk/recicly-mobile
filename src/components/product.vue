@@ -14,7 +14,7 @@
         <nb-button
           block
           :style="{backgroundColor: '#35654d', borderRadius: 100, height: 50, width: 50}"
-          :onPress="() => buyProduct(product.product.id)"
+          :onPress="() => askBuyProduct(product.product)"
         >
           <Icon name="shopping-cart" color="#fff" />
         </nb-button>
@@ -27,12 +27,28 @@
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Toast } from "native-base";
 import store from "../store";
+import { Alert } from "react-native";
 
 export default {
   props: {
     product: Object
   },
   methods: {
+    askBuyProduct(product) {
+      Alert.alert(
+        "Confirme o pedido",
+        `${product.name} -> ${product.price}`,
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+          },
+          { text: "OK", onPress: () => this.buyProduct(product.id) }
+        ],
+        { cancelable: false }
+      );
+    },
     buyProduct(product_id) {
       store.dispatch("BUY_PRODUCT", {
         product_id: product_id,
